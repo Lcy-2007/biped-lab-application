@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#05070f" />
 <title>刘晨阳 · 双足实验室招新申请 | 单片机开发 · 肢体识别与键位映射 → 3D 识别</title>
-<meta name="description" content="刘晨阳 · 郑州大学电气与信息工程学院自动化类本科生，双足实验室招新申请。单片机开发（51 / STM32）、「肢体识别 → 键位映射」独立项目，申请方向：机器人先进视觉 · 3D 识别。" />
+<meta name="description" content="刘晨阳 · 郑州大学电气与信息工程学院自动化类本科生，双足实验室招新申请。单片机开发（51 / STM32）、Python 视觉感知与 Unity 状态中枢三层架构独立项目，申请方向：机器人先进视觉 · 3D 识别。" />
 <meta name="author" content="刘晨阳" />
 
 <!-- 内联 SVG favicon，零外部依赖 -->
@@ -132,8 +132,8 @@
         <span>个独立开发项目<br><i>肢体识别 · 键位映射</i></span>
       </div>
       <div class="mini-stat">
-        <b class="mono" data-count="4">0</b>
-        <span>层系统链路<br><i>采集 → 识别 → 映射 → 输出</i></span>
+        <b class="mono" data-count="3">0</b>
+        <span>层系统链路<br><i>视觉感知 → 状态中枢 → 终端执行</i></span>
       </div>
       <div class="mini-stat">
         <b class="mono">∞</b>
@@ -152,12 +152,12 @@
     <div class="ticker__track">
       <div class="ticker__group">
         <span>51 单片机</span><em>◆</em><span>STM32</span><em>◆</em><span>C / C++</span><em>◆</em><span>UART · I2C · SPI</span><em>◆</em>
-        <span>定时器 / PWM / ADC</span><em>◆</em><span>肢体识别与判别</span><em>◆</em><span>键位映射 · HID</span><em>◆</em><span>实时数据链路</span><em>◆</em>
+        <span>定时器 / PWM / ADC</span><em>◆</em><span>肢体识别与判别</span><em>◆</em><span>Unity 状态中枢</span><em>◆</em><span>实时数据链路</span><em>◆</em>
         <span>Keil MDK</span><em>◆</em><span>STM32CubeMX</span><em>◆</em><span>Python</span><em>◆</em><span>OpenCV / YOLO（学习中）</span><em>◆</em>
       </div>
       <div class="ticker__group">
         <span>51 单片机</span><em>◆</em><span>STM32</span><em>◆</em><span>C / C++</span><em>◆</em><span>UART · I2C · SPI</span><em>◆</em>
-        <span>定时器 / PWM / ADC</span><em>◆</em><span>肢体识别与判别</span><em>◆</em><span>键位映射 · HID</span><em>◆</em><span>实时数据链路</span><em>◆</em>
+        <span>定时器 / PWM / ADC</span><em>◆</em><span>肢体识别与判别</span><em>◆</em><span>Unity 状态中枢</span><em>◆</em><span>实时数据链路</span><em>◆</em>
         <span>Keil MDK</span><em>◆</em><span>STM32CubeMX</span><em>◆</em><span>Python</span><em>◆</em><span>OpenCV / YOLO（学习中）</span><em>◆</em>
       </div>
     </div>
@@ -238,8 +238,9 @@
           <p data-reveal data-reveal-side="right" data-delay="140">
             带着这些底子，我独立开发了
             <strong class="hl">「面向虚拟控制的多模态肢体映射与交互中枢」</strong>：
-            识别使用者的肢体动作，把它翻译成键盘按键输出给电脑——对电脑来说，这套设备就是一把键盘，
-            于是任何支持键盘的软件都能被它控制。它是我第一次把"采集 → 识别 → 映射 → 输出"这条完整链路自己跑通。
+            底层用 Python 做视觉感知、识别使用者的肢体动作，中间层用 Unity GUI 做状态中枢与映射管理，
+            顶层把它翻译成键盘按键执行——于是任何支持键盘的软件都能被它控制。
+            它是我第一次把"感知 → 中枢 → 执行"这条三层链路自己跑通。
           </p>
 
           <p data-reveal data-reveal-side="right" data-delay="200">
@@ -251,7 +252,7 @@
           <div class="about__facts">
             <div class="fact" data-reveal><b class="mono">2</b><span>款 MCU 平台实战</span></div>
             <div class="fact" data-reveal data-delay="70"><b class="mono">1</b><span>个独立完整项目</span></div>
-            <div class="fact" data-reveal data-delay="140"><b class="mono">4</b><span>层系统链路打通</span></div>
+            <div class="fact" data-reveal data-delay="140"><b class="mono">3</b><span>层系统链路打通</span></div>
             <div class="fact" data-reveal data-delay="210"><b class="mono">1</b><span>个正在深入的新方向</span></div>
           </div>
         </div>
@@ -302,9 +303,9 @@
             </div>
           </div>
           <ul class="bars" role="list">
-            <li><span class="bars__label">肢体动作采集与判别 <i>姿态数据 → 动作识别</i></span><span class="bar" data-level="82"><i></i></span><em class="mono">82</em></li>
-            <li><span class="bars__label">键位映射策略设计 <i>动作 → 键盘键值 / 触发方式</i></span><span class="bar" data-level="76"><i></i></span><em class="mono">76</em></li>
-            <li><span class="bars__label">键盘输出与键值编码 <i>HID 输出 · 按键协议理解</i></span><span class="bar" data-level="70"><i></i></span><em class="mono">70</em></li>
+            <li><span class="bars__label">视觉感知与肢体识别 <i>Python · 采集与动作判别</i></span><span class="bar" data-level="82"><i></i></span><em class="mono">82</em></li>
+            <li><span class="bars__label">状态中枢设计 <i>Unity GUI · 状态管理与可视化</i></span><span class="bar" data-level="76"><i></i></span><em class="mono">76</em></li>
+            <li><span class="bars__label">终端执行与键位映射 <i>键值映射 · 长按 / 组合键</i></span><span class="bar" data-level="70"><i></i></span><em class="mono">70</em></li>
             <li><span class="bars__label">实时链路与延迟优化 <i>定时采样 · 缓冲 · 抖动抑制</i></span><span class="bar" data-level="68"><i></i></span><em class="mono">68</em></li>
             <li><span class="bars__label">滤波与校准 <i>滑动平均 · 限幅 · 死区</i></span><span class="bar" data-level="70"><i></i></span><em class="mono">70</em></li>
           </ul>
@@ -321,7 +322,7 @@
             </div>
           </div>
           <ul class="bars" role="list">
-            <li><span class="bars__label">Python <i>数据处理与脚本</i></span><span class="bar bar--warn" data-level="58"><i></i></span><em class="mono">58</em></li>
+            <li><span class="bars__label">Python <i>脚本 · 视觉感知管线</i></span><span class="bar bar--warn" data-level="72"><i></i></span><em class="mono">72</em></li>
             <li><span class="bars__label">OpenCV 图像基础 <i>读写 · 滤波 · 阈值 · ROI</i></span><span class="bar bar--warn" data-level="42"><i></i></span><em class="mono">42</em></li>
             <li><span class="bars__label">深度学习 / YOLO <i>原理与训练流程入门</i></span><span class="bar bar--warn" data-level="32"><i></i></span><em class="mono">32</em></li>
             <li><span class="bars__label">Linux / 嵌入式计算平台 <i>环境部署与远程调试</i></span><span class="bar bar--warn" data-level="34"><i></i></span><em class="mono">34</em></li>
@@ -339,6 +340,7 @@
           <li class="chip chip--core">ST-Link / 串口调试助手</li>
           <li class="chip chip--core">基础焊接</li>
           <li class="chip chip--core">VS Code</li>
+          <li class="chip chip--core">Unity</li>
           <li class="chip chip--grow">Python</li>
           <li class="chip chip--grow">OpenCV</li>
           <li class="chip chip--grow">YOLO 系列</li>
@@ -376,7 +378,7 @@
             <p class="feature__tagline">Limb Recognition → Key Mapping &nbsp;·&nbsp; 肢体识别 → 键位映射</p>
           </div>
           <ul class="feature__tags" role="list">
-            <li>51 单片机</li><li>STM32</li><li>C / C++</li><li>肢体识别</li><li>HID 键位映射</li>
+            <li>Python</li><li>Unity</li><li>OpenCV</li><li>肢体识别</li><li>键位映射</li>
           </ul>
         </div>
 
@@ -391,56 +393,57 @@
 
             <h4 class="feature__h"><span class="mono">02</span> 我是怎么做的</h4>
             <ul class="bullet" role="list">
-              <li><b>硬件选型与搭建：</b>以 STM32 为主控、51 平台的实践为基础做对比，完成最小系统、传感器模块与供电、布线的搭建与调试。</li>
-              <li><b>肢体识别层：</b>按固定周期采集肢体动作数据（姿态 / 角度 / 位移量），经过滤波后做动作判别，输出"当前是什么动作"的判定结果。</li>
-              <li><b>键位映射层：</b>设计可配置的映射策略，把识别出的动作翻译成标准键盘键值，并区分长按、连按、组合键等不同触发方式。</li>
-              <li><b>键盘输出层：</b>把键值以 HID 的形式输出给电脑——对电脑来说，这套设备就是一把键盘，不需要装额外驱动，插上就能用。</li>
-              <li><b>稳定与鲁棒：</b>加入滑动平均、限幅和死区处理抑制抖动，并做了启动校准流程，抵消不同使用者之间的动作差异。</li>
+              <li><b>底层 · 视觉感知（Python）：</b>用摄像头采集画面，在 Python 侧完成图像预处理与肢体关键点检测，
+                  把"画面里的动作"变成结构化状态（动作类别 + 置信度 + 关键坐标），再稳定地推给上层。</li>
+              <li><b>中间层 · 状态中枢（Unity GUI）：</b>用 Unity 搭建中间的状态中枢与人机界面——接住底层推来的状态，
+                  负责状态管理、动作去抖、映射规则配置，同时把当前状态、识别结果与调试信息实时可视化，边调边看。</li>
+              <li><b>顶层 · 终端执行：</b>把中枢确认后的状态翻译成键位指令并执行，最终表现为标准键盘输入——
+                  不需要给每个软件单独写接口，任何支持键盘的软件都能被直接控制。</li>
+              <li><b>跨层协同：</b>三层之间约定轻量消息格式（状态名 + 置信度 + 时间戳），
+                  保证上层拿到的永远是一帧完整状态，不会出现"读到一半"的脏数据。</li>
+              <li><b>稳定与鲁棒：</b>加入滑动平均、置信度阈值与状态最短保持时间抑制抖动；
+                  UI 侧还支持手动暂停与覆写，方便逐帧排查边界情况。</li>
             </ul>
 
             <h4 class="feature__h"><span class="mono">03</span> 我从中真正学到的东西</h4>
             <ul class="bullet bullet--plain" role="list">
-              <li>把一个大问题切成"采集 → 识别 → 映射 → 输出"四层之后，每一层都能单独调——调试效率完全不一样。</li>
-              <li>键值编码不是形式主义：动作判别慢一帧、或者键值发丢了，表现出来的就是"按错键"，边界情况必须一个个堵上。</li>
-              <li>实时性是可以被"算"出来的：采样周期、识别耗时、输出频率，三者必须先对齐，再写代码。</li>
-              <li>也踩过坑：早期没加滤波和死区，动作判别疯狂抖动，同一个动作被误判成好几个按键，最后是靠固定采样周期 + 滑动平均才压下去。</li>
+              <li>把一个大问题切成"感知 → 中枢 → 执行"三层之后，每层职责单一、都能单独调——定位问题的速度完全不一样。</li>
+              <li>中间层不是多余的：识别结果直接用会抖得厉害，多加一层状态中枢做去抖和规则管理，整个系统的可用性提升了一个档次。</li>
+              <li>实时性是可以被"算"出来的：采集帧率、识别耗时、状态推送频率，三者必须先对齐，再写代码。</li>
+              <li>也踩过坑：早期没有置信度阈值和最短保持时间，同一个动作会在好几个键之间反复跳变，
+                  最后是靠阈值 + 状态保持 + 在 Unity 界面里逐帧对照才压下去。</li>
             </ul>
           </div>
 
           <!-- 架构图 -->
           <aside class="feature__arch">
             <h4 class="feature__h feature__h--center"><span class="mono">//</span> 系统链路</h4>
-            <svg viewBox="0 0 240 400" class="arch" role="img" aria-label="系统链路示意图：采集层、识别层、映射中枢、输出层">
+            <svg viewBox="0 0 240 380" class="arch" role="img" aria-label="系统链路示意图：底层视觉感知、中间层状态中枢、顶层终端执行">
               <defs>
                 <linearGradient id="archLine" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#8b5cf6"/>
                 </linearGradient>
               </defs>
-              <path class="arch__wire" d="M120 66V108M120 158V200M120 250V292" stroke="url(#archLine)" stroke-width="2" stroke-dasharray="6 6" fill="none"/>
-              <g class="arch__node" transform="translate(20,20)">
-                <rect width="200" height="46" rx="12"/>
-                <text x="16" y="21" class="arch__t1">采集层 SENSE</text>
-                <text x="16" y="37" class="arch__t2">肢体动作 · 姿态数据</text>
+              <path class="arch__wire" d="M120 124V170M120 234V280" stroke="url(#archLine)" stroke-width="2" stroke-dasharray="6 6" fill="none"/>
+              <g class="arch__node" transform="translate(20,60)">
+                <rect width="200" height="64" rx="12"/>
+                <text x="16" y="26" class="arch__t1">底层 · 视觉感知 PERCEPTION</text>
+                <text x="16" y="46" class="arch__t2">Python · 采集与动作识别</text>
               </g>
-              <g class="arch__node" transform="translate(20,108)">
-                <rect width="200" height="50" rx="12"/>
-                <text x="16" y="21" class="arch__t1">识别层 RECOGNIZE</text>
-                <text x="16" y="37" class="arch__t2">滤波 · 动作判别</text>
+              <g class="arch__node arch__node--hot" transform="translate(20,170)">
+                <rect width="200" height="64" rx="12"/>
+                <text x="16" y="26" class="arch__t1">中间层 · 状态中枢 HUB</text>
+                <text x="16" y="46" class="arch__t2">Unity GUI · 状态与映射</text>
               </g>
-              <g class="arch__node arch__node--hot" transform="translate(20,200)">
-                <rect width="200" height="50" rx="12"/>
-                <text x="16" y="21" class="arch__t1">映射中枢 MAPPING</text>
-                <text x="16" y="37" class="arch__t2">动作 → 键盘键值</text>
-              </g>
-              <g class="arch__node" transform="translate(20,292)">
-                <rect width="200" height="50" rx="12"/>
-                <text x="16" y="21" class="arch__t1">输出层 HID KEYBOARD</text>
-                <text x="16" y="37" class="arch__t2">电脑识别为键盘 · 插上可用</text>
+              <g class="arch__node" transform="translate(20,280)">
+                <rect width="200" height="64" rx="12"/>
+                <text x="16" y="26" class="arch__t1">顶层 · 终端执行 ACT</text>
+                <text x="16" y="46" class="arch__t2">键位输出 · 控制目标软件</text>
               </g>
             </svg>
             <div class="feature__roles">
               <span class="mono">我的角色</span>
-              <p>独立完成：硬件选型与搭建 · 固件编写 · 动作识别与判别 · 键位映射策略 · 联调与测试</p>
+              <p>独立完成：视觉感知算法（Python）· Unity 状态中枢与界面 · 键位映射策略 · 三层联调与测试</p>
             </div>
           </aside>
         </div>
@@ -518,35 +521,44 @@
           <div class="tl__dot" aria-hidden="true"></div>
           <div class="tl__card">
             <span class="tl__time mono">高中</span>
-            <h3>被一块开发板"勾"住了</h3>
-            <p>因为好奇去了解电路和编程，第一次知道原来代码可以让现实里的灯亮起来。那时候基础很浅，但兴趣是从这里开始的。</p>
+            <h3>第一次对"让机器动起来"上心</h3>
+            <p>因为好奇去了解电路和编程，第一次知道原来代码可以控制现实世界里的东西。那时候基础很浅，但兴趣是从这里开始的。</p>
           </div>
         </li>
         <li class="tl" data-reveal data-reveal-side="right">
           <div class="tl__dot" aria-hidden="true"></div>
           <div class="tl__card">
             <span class="tl__time mono">2025.09</span>
-            <h3>进入郑州大学 · 电气与信息工程学院</h3>
-            <p>自动化类专业。第一次有了系统的课程体系：电路、数电、模电、C 语言——很多以前"靠感觉"的东西，开始有了名字和推导过程。</p>
+            <h3>进入郑州大学 · 自动化类</h3>
+            <p>第一次有了系统的课程体系：电路、数电、模电、C 语言——很多以前"靠感觉"的东西，开始有了名字和推导过程。</p>
           </div>
         </li>
         <li class="tl" data-reveal data-reveal-side="left">
           <div class="tl__dot" aria-hidden="true"></div>
           <div class="tl__card">
-            <span class="tl__time mono">大一 · 入学至今</span>
-            <h3>从 51 到 STM32，把"动手"变成习惯</h3>
-            <p>课余时间基本都在开发板上。单片机、外设、调试工具，一件件把基础补齐；也开始习惯把每次踩坑都记下来复盘。</p>
+            <span class="tl__time mono">2026.03</span>
+            <h3>进入电气与信息工程学院</h3>
+            <p>专业分流后进入学院的培养体系，课程与实验资源一下子具体起来，也开始认真想清楚自己要往哪个方向走。</p>
           </div>
         </li>
-        <li class="tl tl--hot" data-reveal data-reveal-side="right">
+        <li class="tl" data-reveal data-reveal-side="right">
+          <div class="tl__dot" aria-hidden="true"></div>
+          <div class="tl__card">
+            <span class="tl__time mono">大一下学期</span>
+            <h3>被一块开发板"勾"住了</h3>
+            <p>第一次把代码烧进板子，看着外设真的按自己的想法动起来——从那一刻起就停不下来。
+              从 51 到 STM32，课余时间基本都泡在开发板上，也开始习惯把每次踩坑记下来复盘。</p>
+          </div>
+        </li>
+        <li class="tl tl--hot" data-reveal data-reveal-side="left">
           <div class="tl__dot" aria-hidden="true"></div>
           <div class="tl__card">
             <span class="tl__time mono">大二</span>
             <h3>独立完成「肢体识别 → 键位映射」项目</h3>
-            <p>第一次独立跑通"采集 → 识别 → 映射 → 输出"的完整链路：让机器认出我的肢体动作，并把它变成键盘按键。</p>
+            <p>第一次独立跑通"视觉感知 → 状态中枢 → 终端执行"的三层链路：Python 看动作、Unity 管状态、最后变成键盘按键。</p>
           </div>
         </li>
-        <li class="tl tl--now" data-reveal data-reveal-side="left">
+        <li class="tl tl--now" data-reveal data-reveal-side="right">
           <div class="tl__dot" aria-hidden="true"></div>
           <div class="tl__card">
             <span class="tl__time mono">现在</span>
@@ -612,7 +624,7 @@
             <li>模型部署与实时性约束</li>
             <li>现场调试与异常处理</li>
           </ul>
-          <div class="pillar__mine">我的连接点：这一层最像我做过的项目——多模块协同、协议设计、实时性与现场调试，都是我已经踩过一遍的坑。</div>
+          <div class="pillar__mine">我的连接点：这一层最像我做过的项目——多模块协同、跨层数据约定、实时性与现场调试，都是我已经踩过一遍的坑。</div>
         </article>
       </div>
 
@@ -624,8 +636,9 @@
           </h4>
           <ul class="gap__list" role="list">
             <li>嵌入式开发与单片机实战经验（51 / STM32）</li>
-            <li>传感器数据采集与实时链路的工程直觉</li>
-            <li>键值编码与"数据不完整"问题的处理经验</li>
+            <li>视觉感知 → 状态中枢 → 终端执行的三层系统搭建经验</li>
+            <li>Python 视觉管线与 Unity 状态中枢的跨层联调经验</li>
+            <li>采集帧率与实时链路约束的工程直觉</li>
             <li>硬件搭建与基础焊接的动手能力</li>
             <li>面对一个陌生模块时"读手册 + 做实验 + 二分定位"的排查习惯</li>
           </ul>
