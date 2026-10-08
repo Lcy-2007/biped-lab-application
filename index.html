@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#05070f" />
+<title>刘晨阳 · 双足实验室招新申请 | 单片机开发 · 肢体识别与键位映射 → 3D 识别</title>
+<meta name="description" content="刘晨阳 · 郑州大学电气与信息工程学院自动化类本科生，双足实验室招新申请。单片机开发（51 / STM32）、「肢体识别 → 键位映射」独立项目，申请方向：机器人先进视觉 · 3D 识别。" />
+<meta name="author" content="刘晨阳" />
+
+<!-- 内联 SVG favicon，零外部依赖 -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23070b16'/%3E%3Cpath d='M16 5l9.5 5.5v11L16 27l-9.5-5.5v-11z' fill='none' stroke='%2322d3ee' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='3.4' fill='%2338bdf8'/%3E%3C/svg%3E" />
+
+<link rel="stylesheet" href="css/style.css" />
+<!-- 降级保护：若浏览器禁用了 JS，内容依然完整可见 -->
+<noscript><style>[data-reveal]{opacity:1!important;transform:none!important}.bar i{width:var(--w,60%)!important}#roadFill{width:100%!important}.bg-canvas{display:none}</style></noscript>
+</head>
+<body>
+
+<!-- ===================== 全局装饰层 ===================== -->
+<div class="scroll-progress" aria-hidden="true"><span id="scrollBar"></span></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+<canvas id="bgCanvas" class="bg-canvas" aria-hidden="true"></canvas>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-vignette" aria-hidden="true"></div>
+<div class="orb orb--a" aria-hidden="true" data-parallax="0.06"></div>
+<div class="orb orb--b" aria-hidden="true" data-parallax="-0.09"></div>
+<div class="orb orb--c" aria-hidden="true" data-parallax="0.12"></div>
+
+<a class="skip-link" href="#about">跳到主要内容</a>
+
+<!-- ===================== 顶部导航 ===================== -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="brand" href="#home" aria-label="返回顶部">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 3.2l10.6 6.1v12.2L16 27.6 5.4 21.5V9.3z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="16" cy="15.4" r="3.2" fill="currentColor"/>
+        <path d="M16 9.3v3M16 18.6v3M10.8 12.2l2.6 1.5M18.6 17.1l2.6 1.5M21.2 12.2l-2.6 1.5M13.4 17.1l-2.6 1.5" stroke="currentColor" stroke-width="1.1" opacity=".55"/>
+      </svg>
+      <span class="brand__text">双足实验室 · 申请</span>
+    </a>
+
+    <nav class="nav__links" id="navLinks" aria-label="页面导航">
+      <a href="#about" class="nav__link">关于我</a>
+      <a href="#skills" class="nav__link">技能栈</a>
+      <a href="#project" class="nav__link">项目经历</a>
+      <a href="#timeline" class="nav__link">成长轨迹</a>
+      <a href="#direction" class="nav__link">方向理解</a>
+      <a href="#contact" class="nav__link nav__link--cta">联系我</a>
+    </nav>
+
+    <button class="nav__toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="home">
+    <div class="wrap hero__wrap">
+
+      <p class="hero__eyebrow" data-reveal>
+        <span class="pulse-dot"></span>
+        双足实验室 · 2026 招新 · 第一轮考核作品
+      </p>
+
+      <h1 class="hero__title">
+        <span class="hero__line" data-reveal data-delay="40">
+          <span class="hero__pre">你好，我是</span>
+          <span class="name-slot">刘晨阳</span>
+        </span>
+        <span class="hero__line" data-reveal data-delay="120">
+          用 <span class="grad">嵌入式</span> 与 <span class="grad grad--v">肢体识别</span>
+        </span>
+        <span class="hero__line" data-reveal data-delay="200">
+          让想法变成 <span class="glow-underline">真实运行的系统</span>
+        </span>
+      </h1>
+
+      <p class="hero__sub" data-reveal data-delay="260">
+        郑州大学 · 电气与信息工程学院 · 自动化类 本科生
+      </p>
+
+      <!-- 必选项：明确选择一个感兴趣的实验室方向 -->
+      <div class="hero__apply" data-reveal data-delay="320">
+        <span class="hero__apply-label">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.6l2 4.1 4.5.6-3.3 3.2.8 4.5L8 11.9 4 14l.8-4.5L1.5 6.3 6 5.7z" fill="currentColor"/></svg>
+          我选择的方向
+        </span>
+        <ul class="dir-chips" role="list">
+          <li class="dir-chip" data-reveal data-delay="360">无人机</li>
+          <li class="dir-chip is-active" data-reveal data-delay="400">
+            <span class="dir-chip__num">3D</span>
+            <span class="dir-chip__name">机器人先进视觉 · 3D 识别</span>
+            <span class="dir-chip__tick" aria-hidden="true">
+              <svg viewBox="0 0 16 16"><path d="M2.5 8.5l3.5 3.5 7-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </li>
+          <li class="dir-chip" data-reveal data-delay="440">工业测量</li>
+          <li class="dir-chip" data-reveal data-delay="480">11v11</li>
+          <li class="dir-chip" data-reveal data-delay="520">巡航</li>
+        </ul>
+      </div>
+
+      <div class="hero__cta" data-reveal data-delay="580">
+        <a class="btn btn--primary" href="#project">
+          <span class="btn__label">查看我的项目</span>
+          <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5.5L15.5 10 11 14.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="#direction">
+          <span class="btn__label">我对 3D 识别的理解</span>
+        </a>
+      </div>
+
+      <p class="hero__typed" data-reveal data-delay="640">
+        <span class="typed__prompt">~</span>
+        <span id="typedText" class="typed__text"></span><span class="typed__caret" aria-hidden="true"></span>
+      </p>
+
+    </div>
+
+    <div class="hero__stats wrap" data-reveal data-delay="700">
+      <div class="mini-stat">
+        <b class="mono" data-count="2">0</b>
+        <span>款单片机平台<br><i>51 / STM32</i></span>
+      </div>
+      <div class="mini-stat">
+        <b class="mono" data-count="1">0</b>
+        <span>个独立开发项目<br><i>肢体识别 · 键位映射</i></span>
+      </div>
+      <div class="mini-stat">
+        <b class="mono" data-count="4">0</b>
+        <span>层系统链路<br><i>采集 → 识别 → 映射 → 输出</i></span>
+      </div>
+      <div class="mini-stat">
+        <b class="mono">∞</b>
+        <span>次折腾与复盘<br><i>还没跑通的也算</i></span>
+      </div>
+    </div>
+
+    <a class="scroll-hint" href="#about" aria-label="向下滚动">
+      <span class="scroll-hint__mouse"><i></i></span>
+      <span class="scroll-hint__txt">SCROLL</span>
+    </a>
+  </section>
+
+  <!-- ===================== 技能跑马灯 ===================== -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <div class="ticker__group">
+        <span>51 单片机</span><em>◆</em><span>STM32</span><em>◆</em><span>C / C++</span><em>◆</em><span>UART · I2C · SPI</span><em>◆</em>
+        <span>定时器 / PWM / ADC</span><em>◆</em><span>肢体识别与判别</span><em>◆</em><span>键位映射 · HID</span><em>◆</em><span>实时数据链路</span><em>◆</em>
+        <span>Keil MDK</span><em>◆</em><span>STM32CubeMX</span><em>◆</em><span>Python</span><em>◆</em><span>OpenCV / YOLO（学习中）</span><em>◆</em>
+      </div>
+      <div class="ticker__group">
+        <span>51 单片机</span><em>◆</em><span>STM32</span><em>◆</em><span>C / C++</span><em>◆</em><span>UART · I2C · SPI</span><em>◆</em>
+        <span>定时器 / PWM / ADC</span><em>◆</em><span>肢体识别与判别</span><em>◆</em><span>键位映射 · HID</span><em>◆</em><span>实时数据链路</span><em>◆</em>
+        <span>Keil MDK</span><em>◆</em><span>STM32CubeMX</span><em>◆</em><span>Python</span><em>◆</em><span>OpenCV / YOLO（学习中）</span><em>◆</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 关于我 ===================== -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <header class="section__head">
+        <span class="section__idx mono" data-reveal>01</span>
+        <h2 class="section__title" data-reveal data-delay="60">关于我 <span class="section__title-en mono">/ ABOUT</span></h2>
+        <p class="section__desc" data-reveal data-delay="120">一个从「让 LED 亮起来」开始，慢慢走到「让机器看懂世界」的自动化类学生。</p>
+      </header>
+
+      <div class="about">
+        <!-- 个人档案卡 -->
+        <aside class="profile-card tilt" data-reveal data-reveal-side="left">
+          <div class="profile-card__glow" aria-hidden="true"></div>
+          <div class="profile-card__avatar" aria-hidden="true">
+            <svg viewBox="0 0 200 200" class="chip-art">
+              <defs>
+                <linearGradient id="chipGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#22d3ee"/><stop offset="55%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/>
+                </linearGradient>
+                <filter id="chipGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <g stroke="url(#chipGrad)" fill="none" stroke-width="2" filter="url(#chipGlow)" opacity=".95">
+                <rect x="62" y="62" width="76" height="76" rx="14"/>
+                <rect x="78" y="78" width="44" height="44" rx="8" opacity=".7"/>
+              </g>
+              <g stroke="#3b82f6" stroke-width="2" opacity=".55">
+                <path d="M62 78H36M62 100H30M62 122H36M138 78h26M138 100h32M138 122h26"/>
+                <path d="M78 62V36M100 62V30M122 62V36M78 138v26M100 138v32M122 138v26"/>
+              </g>
+              <circle cx="100" cy="100" r="7" fill="#22d3ee">
+                <animate attributeName="r" values="6;9;6" dur="2.6s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="1;.5;1" dur="2.6s" repeatCount="indefinite"/>
+              </circle>
+              <g fill="#22d3ee" opacity=".9">
+                <circle cx="36" cy="78" r="3"/><circle cx="30" cy="100" r="3"/><circle cx="36" cy="122" r="3"/>
+                <circle cx="164" cy="78" r="3"/><circle cx="170" cy="100" r="3"/><circle cx="164" cy="122" r="3"/>
+                <circle cx="78" cy="36" r="3"/><circle cx="100" cy="30" r="3"/><circle cx="122" cy="36" r="3"/>
+                <circle cx="78" cy="164" r="3"/><circle cx="100" cy="170" r="3"/><circle cx="122" cy="164" r="3"/>
+              </g>
+            </svg>
+            <span class="avatar-ring" aria-hidden="true"></span>
+          </div>
+
+          <h3 class="profile-card__name">刘晨阳</h3>
+          <p class="profile-card__role mono">ZZU · 电气与信息工程学院 · 自动化类</p>
+
+          <ul class="profile-card__meta" role="list">
+            <li><span>年级</span><b>本科在读 · 二年级</b></li>
+            <li><span>所在</span><b>中国 · 河南 · 郑州</b></li>
+            <li><span>主攻</span><b>嵌入式开发 / 单片机</b></li>
+            <li><span>兴趣</span><b>肢体识别与映射 · 计算机视觉</b></li>
+          </ul>
+
+          <div class="profile-card__status">
+            <span class="status-dot"></span>
+            正在申请 · 双足实验室 3D 识别方向
+          </div>
+        </aside>
+
+        <!-- 正文 -->
+        <div class="about__body">
+          <p class="about__lead" data-reveal data-reveal-side="right">
+            我是郑州大学电气与信息工程学院自动化类的二年级本科生。我的动手经历是从一块 51 单片机开发板开始的——
+            从只会照着例程点灯，到能自己翻数据手册、配寄存器、调时序，把一个个"不动"的模块调成"能动"的模块。
+          </p>
+
+          <p data-reveal data-reveal-side="right" data-delay="80">
+            之后我用 STM32 做了一次系统性的外设训练：定时器、PWM、ADC、串口、中断与状态机的配合，
+            也开始真正理解"实时"这两个字——数据什么时候采、什么时候算、按键什么时候发出去，都是有约束的。
+            <!-- ✏️ 可替换：换成你自己真实的入门经历 -->
+          </p>
+
+          <p data-reveal data-reveal-side="right" data-delay="140">
+            带着这些底子，我独立开发了
+            <strong class="hl">「面向虚拟控制的多模态肢体映射与交互中枢」</strong>：
+            识别使用者的肢体动作，把它翻译成键盘按键输出给电脑——对电脑来说，这套设备就是一把键盘，
+            于是任何支持键盘的软件都能被它控制。它是我第一次把"采集 → 识别 → 映射 → 输出"这条完整链路自己跑通。
+          </p>
+
+          <p data-reveal data-reveal-side="right" data-delay="200">
+            也正是这个项目，让我意识到自己真正的兴趣所在：<strong class="hl">让机器"看懂"并"理解"物理世界</strong>。
+            我做过的是"把人的动作翻译成键盘按键"，而 3D 识别做的是"把真实场景变成机器能计算的三维信息"——
+            两者都在解决同一个问题：<em>如何把物理世界可靠地映射进数字世界</em>。这也是我选择 3D 方向最直接的原因。
+          </p>
+
+          <div class="about__facts">
+            <div class="fact" data-reveal><b class="mono">2</b><span>款 MCU 平台实战</span></div>
+            <div class="fact" data-reveal data-delay="70"><b class="mono">1</b><span>个独立完整项目</span></div>
+            <div class="fact" data-reveal data-delay="140"><b class="mono">4</b><span>层系统链路打通</span></div>
+            <div class="fact" data-reveal data-delay="210"><b class="mono">1</b><span>个正在深入的新方向</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 技能栈 ===================== -->
+  <section class="section section--alt" id="skills">
+    <div class="wrap">
+      <header class="section__head">
+        <span class="section__idx mono" data-reveal>02</span>
+        <h2 class="section__title" data-reveal data-delay="60">技能栈 <span class="section__title-en mono">/ SKILLS</span></h2>
+        <p class="section__desc" data-reveal data-delay="120">
+          我把技能分成三层：<b>已经能独立用起来的</b>、<b>正在深挖的</b>、<b>刚刚起步的</b>。进度条是自我评估，不夸大。
+        </p>
+      </header>
+
+      <div class="skills">
+
+        <article class="skill-card tilt" data-reveal>
+          <div class="skill-card__head">
+            <span class="skill-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+            <div>
+              <h3>嵌入式与单片机开发</h3>
+              <p class="skill-card__sub mono">CORE · 独立可交付</p>
+            </div>
+          </div>
+          <ul class="bars" role="list">
+            <li><span class="bars__label">51 单片机 <i>8051 / 寄存器级开发</i></span><span class="bar" data-level="88"><i></i></span><em class="mono">88</em></li>
+            <li><span class="bars__label">STM32 <i>HAL 库 + 标准库</i></span><span class="bar" data-level="84"><i></i></span><em class="mono">84</em></li>
+            <li><span class="bars__label">C / C++ <i>嵌入式常用语法与结构</i></span><span class="bar" data-level="80"><i></i></span><em class="mono">80</em></li>
+            <li><span class="bars__label">外设驱动 <i>UART / I2C / SPI / PWM / ADC</i></span><span class="bar" data-level="78"><i></i></span><em class="mono">78</em></li>
+            <li><span class="bars__label">中断与状态机 <i>定时采样与任务调度</i></span><span class="bar" data-level="72"><i></i></span><em class="mono">72</em></li>
+          </ul>
+        </article>
+
+        <article class="skill-card tilt" data-reveal data-delay="90">
+          <div class="skill-card__head">
+            <span class="skill-card__icon skill-card__icon--v">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v6M12 14v6M4.5 8.5l4 4M15.5 11.5l4 4M4.5 15.5l4-4M15.5 12.5l4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="12" r="2.6" fill="currentColor"/><circle cx="4.5" cy="7" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="19.5" cy="7" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="4.5" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="19.5" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            </span>
+            <div>
+              <h3>肢体识别与键位映射</h3>
+              <p class="skill-card__sub mono">FOCUS · 项目主战场</p>
+            </div>
+          </div>
+          <ul class="bars" role="list">
+            <li><span class="bars__label">肢体动作采集与判别 <i>姿态数据 → 动作识别</i></span><span class="bar" data-level="82"><i></i></span><em class="mono">82</em></li>
+            <li><span class="bars__label">键位映射策略设计 <i>动作 → 键盘键值 / 触发方式</i></span><span class="bar" data-level="76"><i></i></span><em class="mono">76</em></li>
+            <li><span class="bars__label">键盘输出与键值编码 <i>HID 输出 · 按键协议理解</i></span><span class="bar" data-level="70"><i></i></span><em class="mono">70</em></li>
+            <li><span class="bars__label">实时链路与延迟优化 <i>定时采样 · 缓冲 · 抖动抑制</i></span><span class="bar" data-level="68"><i></i></span><em class="mono">68</em></li>
+            <li><span class="bars__label">滤波与校准 <i>滑动平均 · 限幅 · 死区</i></span><span class="bar" data-level="70"><i></i></span><em class="mono">70</em></li>
+          </ul>
+        </article>
+
+        <article class="skill-card tilt" data-reveal data-delay="180">
+          <div class="skill-card__head">
+            <span class="skill-card__icon skill-card__icon--warn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+            <div>
+              <h3>正在拓展</h3>
+              <p class="skill-card__sub mono">GROWING · 面向 3D 识别补齐</p>
+            </div>
+          </div>
+          <ul class="bars" role="list">
+            <li><span class="bars__label">Python <i>数据处理与脚本</i></span><span class="bar bar--warn" data-level="58"><i></i></span><em class="mono">58</em></li>
+            <li><span class="bars__label">OpenCV 图像基础 <i>读写 · 滤波 · 阈值 · ROI</i></span><span class="bar bar--warn" data-level="42"><i></i></span><em class="mono">42</em></li>
+            <li><span class="bars__label">深度学习 / YOLO <i>原理与训练流程入门</i></span><span class="bar bar--warn" data-level="32"><i></i></span><em class="mono">32</em></li>
+            <li><span class="bars__label">Linux / 嵌入式计算平台 <i>环境部署与远程调试</i></span><span class="bar bar--warn" data-level="34"><i></i></span><em class="mono">34</em></li>
+            <li><span class="bars__label">Git 版本管理 <i>提交 · 分支 · 回滚</i></span><span class="bar bar--warn" data-level="50"><i></i></span><em class="mono">50</em></li>
+          </ul>
+        </article>
+
+      </div>
+
+      <div class="chips-block" data-reveal>
+        <h4 class="chips-block__title mono">// TOOLBOX</h4>
+        <ul class="chips" role="list">
+          <li class="chip chip--core">Keil MDK</li>
+          <li class="chip chip--core">STM32CubeMX</li>
+          <li class="chip chip--core">ST-Link / 串口调试助手</li>
+          <li class="chip chip--core">基础焊接</li>
+          <li class="chip chip--core">VS Code</li>
+          <li class="chip chip--grow">Python</li>
+          <li class="chip chip--grow">OpenCV</li>
+          <li class="chip chip--grow">YOLO 系列</li>
+          <li class="chip chip--grow">PyTorch</li>
+          <li class="chip chip--grow">Linux 基础命令</li>
+          <li class="chip chip--grow">Git</li>
+          <li class="chip chip--ai">AI 辅助调试 / 读手册</li>
+          <li class="chip chip--ai">AI 辅助整理思路</li>
+        </ul>
+        <p class="chips-block__note">
+          <span class="legend legend--core"></span>已能独立使用
+          <span class="legend legend--grow"></span>正在学习
+          <span class="legend legend--ai"></span>常态化借助 AI 提效
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 项目经历 ===================== -->
+  <section class="section" id="project">
+    <div class="wrap">
+      <header class="section__head">
+        <span class="section__idx mono" data-reveal>03</span>
+        <h2 class="section__title" data-reveal data-delay="60">项目经历 <span class="section__title-en mono">/ PROJECTS</span></h2>
+        <p class="section__desc" data-reveal data-delay="120">一个我独立做完的主项目，加上几个"小尝试"——包括一次没跑通的探索。</p>
+      </header>
+
+      <!-- 重点主项目 -->
+      <article class="feature" data-reveal>
+        <div class="feature__ribbon mono">FEATURED · 独立开发</div>
+
+        <div class="feature__top">
+          <div class="feature__title-wrap">
+            <h3 class="feature__title">面向虚拟控制的多模态肢体映射与交互中枢</h3>
+            <p class="feature__tagline">Limb Recognition → Key Mapping &nbsp;·&nbsp; 肢体识别 → 键位映射</p>
+          </div>
+          <ul class="feature__tags" role="list">
+            <li>51 单片机</li><li>STM32</li><li>C / C++</li><li>肢体识别</li><li>HID 键位映射</li>
+          </ul>
+        </div>
+
+        <div class="feature__grid">
+          <div class="feature__col">
+            <h4 class="feature__h"><span class="mono">01</span> 我想解决什么问题</h4>
+            <p>
+              传统的虚拟控制基本依赖键鼠或手柄——维度少、不直观。但有一件事我一直觉得很有意思：<strong>键盘是电脑最通用的输入接口</strong>，
+              几乎所有的软件都认它。所以我想做的不是给每个软件单独写一套专用接口，而是<strong>让肢体动作直接变成键盘按键</strong>——
+              只要这一步走通，就等于同时打开了所有支持键盘的软件。而且这套映射是可配置、可复用的，不针对某一个场景硬编码。
+            </p>
+
+            <h4 class="feature__h"><span class="mono">02</span> 我是怎么做的</h4>
+            <ul class="bullet" role="list">
+              <li><b>硬件选型与搭建：</b>以 STM32 为主控、51 平台的实践为基础做对比，完成最小系统、传感器模块与供电、布线的搭建与调试。</li>
+              <li><b>肢体识别层：</b>按固定周期采集肢体动作数据（姿态 / 角度 / 位移量），经过滤波后做动作判别，输出"当前是什么动作"的判定结果。</li>
+              <li><b>键位映射层：</b>设计可配置的映射策略，把识别出的动作翻译成标准键盘键值，并区分长按、连按、组合键等不同触发方式。</li>
+              <li><b>键盘输出层：</b>把键值以 HID 的形式输出给电脑——对电脑来说，这套设备就是一把键盘，不需要装额外驱动，插上就能用。</li>
+              <li><b>稳定与鲁棒：</b>加入滑动平均、限幅和死区处理抑制抖动，并做了启动校准流程，抵消不同使用者之间的动作差异。</li>
+            </ul>
+
+            <h4 class="feature__h"><span class="mono">03</span> 我从中真正学到的东西</h4>
+            <ul class="bullet bullet--plain" role="list">
+              <li>把一个大问题切成"采集 → 识别 → 映射 → 输出"四层之后，每一层都能单独调——调试效率完全不一样。</li>
+              <li>键值编码不是形式主义：动作判别慢一帧、或者键值发丢了，表现出来的就是"按错键"，边界情况必须一个个堵上。</li>
+              <li>实时性是可以被"算"出来的：采样周期、识别耗时、输出频率，三者必须先对齐，再写代码。</li>
+              <li>也踩过坑：早期没加滤波和死区，动作判别疯狂抖动，同一个动作被误判成好几个按键，最后是靠固定采样周期 + 滑动平均才压下去。</li>
+            </ul>
+          </div>
+
+          <!-- 架构图 -->
+          <aside class="feature__arch">
+            <h4 class="feature__h feature__h--center"><span class="mono">//</span> 系统链路</h4>
+            <svg viewBox="0 0 240 400" class="arch" role="img" aria-label="系统链路示意图：采集层、识别层、映射中枢、输出层">
+              <defs>
+                <linearGradient id="archLine" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#8b5cf6"/>
+                </linearGradient>
+              </defs>
+              <path class="arch__wire" d="M120 66V108M120 158V200M120 250V292" stroke="url(#archLine)" stroke-width="2" stroke-dasharray="6 6" fill="none"/>
+              <g class="arch__node" transform="translate(20,20)">
+                <rect width="200" height="46" rx="12"/>
+                <text x="16" y="21" class="arch__t1">采集层 SENSE</text>
+                <text x="16" y="37" class="arch__t2">肢体动作 · 姿态数据</text>
+              </g>
+              <g class="arch__node" transform="translate(20,108)">
+                <rect width="200" height="50" rx="12"/>
+                <text x="16" y="21" class="arch__t1">识别层 RECOGNIZE</text>
+                <text x="16" y="37" class="arch__t2">滤波 · 动作判别</text>
+              </g>
+              <g class="arch__node arch__node--hot" transform="translate(20,200)">
+                <rect width="200" height="50" rx="12"/>
+                <text x="16" y="21" class="arch__t1">映射中枢 MAPPING</text>
+                <text x="16" y="37" class="arch__t2">动作 → 键盘键值</text>
+              </g>
+              <g class="arch__node" transform="translate(20,292)">
+                <rect width="200" height="50" rx="12"/>
+                <text x="16" y="21" class="arch__t1">输出层 HID KEYBOARD</text>
+                <text x="16" y="37" class="arch__t2">电脑识别为键盘 · 插上可用</text>
+              </g>
+            </svg>
+            <div class="feature__roles">
+              <span class="mono">我的角色</span>
+              <p>独立完成：硬件选型与搭建 · 固件编写 · 动作识别与判别 · 键位映射策略 · 联调与测试</p>
+            </div>
+          </aside>
+        </div>
+      </article>
+
+      <!-- 小尝试 -->
+      <div class="mini-projects">
+        <h3 class="mini-projects__title" data-reveal>
+          小尝试 <span class="mono">/ SMALL EXPERIMENTS</span>
+          <em>不必是完整项目，也不必获奖——但它们真实发生过</em>
+        </h3>
+
+        <div class="mini-grid">
+          <article class="mini tilt" data-reveal>
+            <span class="mini__num mono">A1</span>
+            <h4>51 单片机：从点灯到"能用"</h4>
+            <p>第一个真正"跑起来"的硬件。从照抄例程到能自己算延时、调定时器、驱动数码管与按键扫描，把开发板当成了我的第一本教材。</p>
+            <ul class="mini__tags" role="list"><li>GPIO</li><li>定时器</li><li>数码管</li><li>按键扫描</li></ul>
+          </article>
+
+          <article class="mini tilt" data-reveal data-delay="80">
+            <span class="mini__num mono">A2</span>
+            <h4>STM32：把外设系统性地练一遍</h4>
+            <p>UART / I2C / SPI / PWM / ADC 逐个啃下来，第一次体会到"配置一个外设要读十几页手册"是什么感觉，也开始用状态机组织代码。</p>
+            <ul class="mini__tags" role="list"><li>HAL 库</li><li>中断</li><li>DMA</li><li>状态机</li></ul>
+          </article>
+
+          <article class="mini tilt" data-reveal data-delay="160">
+            <span class="mini__num mono">A3</span>
+            <h4>一串永远打印乱码的串口</h4>
+            <p>波特率、时钟树、电平、共地——排查了整整一晚。最后发现是自己算错了分频。那次之后，我养成了"先怀疑配置，再怀疑硬件"的习惯。</p>
+            <ul class="mini__tags" role="list"><li>串口</li><li>时钟树</li><li>复盘</li></ul>
+          </article>
+
+          <article class="mini mini--fail tilt" data-reveal data-delay="240">
+            <span class="mini__num mono">A4</span>
+            <h4>一次没跑通的探索 <span class="mini__fail-tag">未完成</span></h4>
+            <p>
+              我尝试让主控去驱动一个视觉/传感模块，卡在了时序与协议理解上，最终没能在计划时间内跑通。
+              但这次失败让我第一次认真去读时序图、第一次把手册里的时序要求逐条对着代码核对——它是我开始接触"感知"这条线的起点。
+              <!-- ✏️ 可替换：换成你自己真实的一次未完成尝试 -->
+            </p>
+            <ul class="mini__tags" role="list"><li>时序图</li><li>协议理解</li><li>未完成</li></ul>
+          </article>
+        </div>
+
+        <div class="ai-note" data-reveal>
+          <span class="ai-note__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2.5l1.9 5.4 5.6 1.9-5.6 1.9L12 17.1l-1.9-5.4L4.5 9.8l5.6-1.9z" fill="currentColor"/><path d="M18.5 15.5l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z" fill="currentColor" opacity=".7"/></svg>
+          </span>
+          <div>
+            <h4>关于 AI 的使用方式</h4>
+            <p>
+              这个网页本身就是我用 AI 一步步做出来的：从确定结构、写第一版布局，到调 CSS 动画、解决报错、最后部署上线。
+              在做项目的过程中，我也习惯让 AI 帮我<strong>翻译数据手册里看不懂的段落</strong>、<strong>给出排查思路</strong>、<strong>解释一段时序为什么这样设计</strong>——
+              但结论我都会回到手册和实测数据上验证。AI 对我来说是加速器，不是答案本身。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 成长轨迹 ===================== -->
+  <section class="section section--alt" id="timeline">
+    <div class="wrap">
+      <header class="section__head">
+        <span class="section__idx mono" data-reveal>04</span>
+        <h2 class="section__title" data-reveal data-delay="60">成长轨迹 <span class="section__title-en mono">/ TIMELINE</span></h2>
+        <p class="section__desc" data-reveal data-delay="120">从第一次接触电子，到现在决定把方向压在"让机器看懂世界"上。</p>
+      </header>
+
+      <ol class="timeline" role="list">
+        <li class="tl" data-reveal data-reveal-side="left">
+          <div class="tl__dot" aria-hidden="true"></div>
+          <div class="tl__card">
+            <span class="tl__time mono">高中</span>
+            <h3>被一块开发板"勾"住了</h3>
+            <p>因为好奇去了解电路和编程，第一次知道原来代码可以让现实里的灯亮起来。那时候基础很浅，但兴趣是从这里开始的。</p>
+          </div>
+        </li>
+        <li class="tl" data-reveal data-reveal-side="right">
+          <div class="tl__dot" aria-hidden="true"></div>
+          <div class="tl__card">
+            <span class="tl__time mono">2025.09</span>
+            <h3>进入郑州大学 · 电气与信息工程学院</h3>
+            <p>自动化类专业。第一次有了系统的课程体系：电路、数电、模电、C 语言——很多以前"靠感觉"的东西，开始有了名字和推导过程。</p>
+          </div>
+        </li>
+        <li class="tl" data-reveal data-reveal-side="left">
+          <div class="tl__dot" aria-hidden="true"></div>
+          <div class="tl__card">
+            <span class="tl__time mono">大一 · 入学至今</span>
+            <h3>从 51 到 STM32，把"动手"变成习惯</h3>
+            <p>课余时间基本都在开发板上。单片机、外设、调试工具，一件件把基础补齐；也开始习惯把每次踩坑都记下来复盘。</p>
+          </div>
+        </li>
+        <li class="tl tl--hot" data-reveal data-reveal-side="right">
+          <div class="tl__dot" aria-hidden="true"></div>
+          <div class="tl__card">
+            <span class="tl__time mono">大二</span>
+            <h3>独立完成「肢体识别 → 键位映射」项目</h3>
+            <p>第一次独立跑通"采集 → 识别 → 映射 → 输出"的完整链路：让机器认出我的肢体动作，并把它变成键盘按键。</p>
+          </div>
+        </li>
+        <li class="tl tl--now" data-reveal data-reveal-side="left">
+          <div class="tl__dot" aria-hidden="true"></div>
+          <div class="tl__card">
+            <span class="tl__time mono">现在</span>
+            <h3>申请双足实验室 · 机器人先进视觉（3D 识别）</h3>
+            <p>把方向从"把动作变成信号"，推进到"把场景变成三维信息"。这是我想认真投入的下一段路。</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== 方向理解 ===================== -->
+  <section class="section" id="direction">
+    <div class="wrap">
+      <header class="section__head">
+        <span class="section__idx mono" data-reveal>05</span>
+        <h2 class="section__title" data-reveal data-delay="60">为什么是「3D 识别」 <span class="section__title-en mono">/ DIRECTION</span></h2>
+        <p class="section__desc" data-reveal data-delay="120">
+          按招新要求，我明确选择 <b class="hl">3D · 机器人先进视觉—3D识别</b>。下面是我对这个方向的理解，以及我准备怎么补上差距。
+        </p>
+      </header>
+
+      <div class="why" data-reveal>
+        <blockquote class="why__quote">
+          <span class="why__mark mono">“</span>
+          我在做的项目，是把<strong>人的动作</strong>翻译成键盘按键；3D 识别做的是把<strong>真实的场景</strong>映射成机器能计算的
+          三维信息。两者解决的是同一类问题——<b>如何把物理世界可靠地、实时地映射进数字世界</b>。这是我想深入它的原因。
+        </blockquote>
+      </div>
+
+      <h3 class="sub-title" data-reveal>我对这个方向的理解：三条主线</h3>
+      <div class="pillars">
+        <article class="pillar tilt" data-reveal>
+          <span class="pillar__num mono">01</span>
+          <h4>视觉感知与图像处理</h4>
+          <p>相机负责"看见"：图像与深度信息的采集、预处理、感兴趣区域提取与目标定位。这一层决定了后面所有计算的输入质量。</p>
+          <ul class="pillar__list" role="list">
+            <li>彩色 + 深度信息对齐</li>
+            <li>去噪 / 畸变校正 / ROI 提取</li>
+            <li>光照与复杂背景的干扰</li>
+          </ul>
+          <div class="pillar__mine">我的连接点：外设驱动与传感器数据采集是我的强项，这一层的"取数"逻辑和我做过的多通道采集是相通的。</div>
+        </article>
+
+        <article class="pillar tilt" data-reveal data-delay="90">
+          <span class="pillar__num mono">02</span>
+          <h4>目标检测与三维识别</h4>
+          <p>用 YOLO 这类深度学习算法识别目标物品（类别、数量），再结合深度信息判断它在空间中的位置，并对结果做优化。</p>
+          <ul class="pillar__list" role="list">
+            <li>目标检测模型的训练与推理</li>
+            <li>深度 → 三维坐标换算</li>
+            <li>类别 / 数量 / 位置的联合输出</li>
+          </ul>
+          <div class="pillar__mine">我的连接点：这是我目前差距最大、也最想补的一块——已经开始从 Python、OpenCV 到 YOLO 训练流程系统地学。</div>
+        </article>
+
+        <article class="pillar tilt" data-reveal data-delay="180">
+          <span class="pillar__num mono">03</span>
+          <h4>机器人系统集成与工程实践</h4>
+          <p>相机、云台、裁判盒和计算平台要协同工作：模型部署、实时推理、结果输出与现场调试——最终比拼的是整个系统能不能稳定跑。</p>
+          <ul class="pillar__list" role="list">
+            <li>多设备协同与通信</li>
+            <li>模型部署与实时性约束</li>
+            <li>现场调试与异常处理</li>
+          </ul>
+          <div class="pillar__mine">我的连接点：这一层最像我做过的项目——多模块协同、协议设计、实时性与现场调试，都是我已经踩过一遍的坑。</div>
+        </article>
+      </div>
+
+      <div class="gap">
+        <div class="gap__col" data-reveal>
+          <h4 class="gap__title gap__title--have">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            我能立刻带进来的
+          </h4>
+          <ul class="gap__list" role="list">
+            <li>嵌入式开发与单片机实战经验（51 / STM32）</li>
+            <li>传感器数据采集与实时链路的工程直觉</li>
+            <li>键值编码与"数据不完整"问题的处理经验</li>
+            <li>硬件搭建与基础焊接的动手能力</li>
+            <li>面对一个陌生模块时"读手册 + 做实验 + 二分定位"的排查习惯</li>
+          </ul>
+        </div>
+        <div class="gap__col" data-reveal data-delay="90">
+          <h4 class="gap__title gap__title--need">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 6.4v4.2M10 13.3v.1" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+            我需要补上的
+          </h4>
+          <ul class="gap__list" role="list">
+            <li>Python 与科学计算/图像处理的工程化使用</li>
+            <li>相机成像模型、标定与深度信息的意义</li>
+            <li>深度学习基础与 YOLO 的训练、评估、调参</li>
+            <li>Linux / 嵌入式计算平台上的模型部署与推理加速</li>
+            <li>在开源视觉框架上做二次开发的能力</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="sub-title" data-reveal>如果我有机会加入，我的学习路径</h3>
+      <div class="roadmap">
+        <div class="roadmap__line" aria-hidden="true"><span id="roadFill"></span></div>
+        <ol class="roadmap__steps" role="list">
+          <li class="road" data-reveal>
+            <span class="road__dot mono">1</span>
+            <h4>打地基</h4>
+            <p>补齐 Python + OpenCV：图像读写、滤波、阈值、ROI、轮廓与基本的坐标变换，把"看图"变成可编程的动作。</p>
+            <span class="road__out">产出：能独立写出取图与预处理的脚本</span>
+          </li>
+          <li class="road" data-reveal data-delay="80">
+            <span class="road__dot mono">2</span>
+            <h4>进入检测</h4>
+            <p>吃透目标检测的基本流程，跑通一次 YOLO 的数据集准备 → 训练 → 验证 → 导出的完整闭环。</p>
+            <span class="road__out">产出：一个能识别指定物品的小模型</span>
+          </li>
+          <li class="road" data-reveal data-delay="160">
+            <span class="road__dot mono">3</span>
+            <h4>加上第三个维度</h4>
+            <p>理解深度信息与相机标定，把二维检测框和深度数据结合起来，算出目标的实际空间位置。</p>
+            <span class="road__out">产出：带三维坐标的输出结果</span>
+          </li>
+          <li class="road" data-reveal data-delay="240">
+            <span class="road__dot mono">4</span>
+            <h4>做成系统</h4>
+            <p>把算法部署到计算平台，和相机、云台、结果输出串联起来，在真实桌面上调试到稳定运行。</p>
+            <span class="road__out">产出：一个能现场跑起来的完整链路</span>
+          </li>
+        </ol>
+      </div>
+
+      <p class="direction__foot" data-reveal>
+        我知道自己现在离"能在比赛现场把系统跑稳"还有距离。但我也相信，一件事能不能做成，看的不是起点在哪，
+        而是<strong>愿不愿意把不懂的部分一段一段啃下来</strong>——这一点，我在那块 51 开发板上已经验证过一次了。
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 联系 / 收尾 ===================== -->
+  <section class="section contact" id="contact">
+    <div class="wrap">
+      <div class="contact__box" data-reveal>
+        <span class="contact__badge mono">READY TO JOIN</span>
+        <h2 class="contact__title">
+          期待在双足实验室，<br />把「看得见的硬件」做成「<span class="grad">看得懂的视觉</span>」。
+        </h2>
+        <p class="contact__desc">
+          感谢你读到这里。如果你愿意给我一个机会，我想用最笨也最可靠的方式开始：先把基础补齐，再把活接过来做。
+        </p>
+
+        <ul class="contact__list" role="list">
+          <li class="contact__item">
+            <span class="contact__label mono">姓名</span>
+            <span class="contact__val">刘晨阳</span>
+          </li>
+          <li class="contact__item">
+            <span class="contact__label mono">学院 / 专业</span>
+            <span class="contact__val">电气与信息工程学院 · 自动化类</span>
+          </li>
+          <li class="contact__item">
+            <span class="contact__label mono">微信</span>
+            <span class="contact__val">Lcy54573985</span>
+          </li>
+          <li class="contact__item">
+            <span class="contact__label mono">邮箱</span>
+            <span class="contact__val">2324054605@qq.com</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__left">
+      <svg class="footer__mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 3.2l10.6 6.1v12.2L16 27.6 5.4 21.5V9.3z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="16" cy="15.4" r="3.2" fill="currentColor"/>
+      </svg>
+      <p>
+        双足实验室招新申请 · 3D 识别方向<br />
+        <span class="mono">HTML / CSS / JavaScript · 手写实现 · 已部署上线</span>
+      </p>
+    </div>
+    <div class="footer__right">
+      <a href="#home" class="footer__top">回到顶部 ↑</a>
+      <span class="mono footer__year">© 2026</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">
+  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 15.5V5M5.5 9.5L10 5l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script src="js/main.js"></script>
+</body>
+</html>
